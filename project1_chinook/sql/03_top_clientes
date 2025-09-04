@@ -1,0 +1,68 @@
+--  -- Top produtos + principales clientes (prueba)
+--  WITH top_tracks AS (
+--      SELECT 
+--          t.track_id,
+--          t.name AS track_name,
+--          COUNT(il.invoice_line_id) AS times_sold,
+--          SUM(il.unit_price * il.quantity) AS total_revenue
+--      FROM track t
+--      INNER JOIN invoice_line il 
+--          ON t.track_id = il.track_id
+--      GROUP BY t.track_id, t.name
+--      ORDER BY times_sold DESC
+--      LIMIT 10
+--  )
+--  SELECT 
+--      tt.track_name,
+--      c.first_name || ' ' || c.last_name AS customer_name,
+--      c.country,
+--      COUNT(il.invoice_line_id) AS purchases_by_customer
+--  FROM top_tracks tt
+--  INNER JOIN invoice_line il 
+--      ON tt.track_id = il.track_id
+--  INNER JOIN invoice i 
+--      ON il.invoice_id = i.invoice_id
+--  INNER JOIN customer c 
+--      ON i.customer_id = c.customer_id
+--  GROUP BY tt.track_name, c.customer_id, customer_name, c.country
+--  ORDER BY tt.track_name, purchases_by_customer DESC;
+
+
+-- Clientes principales por producto --
+WITH top_tracks AS (
+    SELECT 
+        t.track_id,
+        t.name AS track_name,
+        COUNT(il.invoice_line_id) AS times_sold,
+        SUM(il.unit_price * il.quantity) AS total_revenue
+    FROM track t
+    INNER JOIN invoice_line il ON t.track_id = il.track_id
+    GROUP BY t.track_id, t.name
+    ORDER BY times_sold DESC
+    LIMIT 100
+),
+track_customers AS (
+    SELECT 
+        tt.track_name,
+        c.customer_id,
+        c.first_name || ' ' || c.last_name AS customer_name,
+        c.country,
+        COUNT(il.invoice_line_id) AS purchases_by_customer
+    FROM top_tracks tt
+    INNER JOIN invoice_line il ON tt.track_id = il.track_id
+    INNER JOIN invoice i ON il.invoice_id = i.invoice_id
+    INNER JOIN customer c ON i.customer_id = c.customer_id
+    GROUP BY tt.track_name, c.customer_id, customer_name, c.country
+)
+SELECT *
+FROM (
+    SELECT 
+        tc.track_name,
+        tc.customer_name,
+        tc.country,
+        tc.purchases_by_customer,
+        ROW_NUMBER() OVER (PARTITION BY tc.track_name ORDER BY tc.purchases_by_customer DESC) AS rank_customer
+    FROM track_customers tc
+) ranked
+WHERE rank_customer <= 3
+ORDER BY track_name, rank_customer;

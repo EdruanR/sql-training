@@ -1,0 +1,12 @@
+-- Unir productos con ventas --
+SELECT 
+    t.track_id,
+    t.name AS track_name,
+    COUNT(il.invoice_line_id) AS times_sold,
+    SUM(il.unit_price * il.quantity) AS total_revenue
+FROM track t
+INNER JOIN invoice_line il 
+    ON t.track_id = il.track_id
+GROUP BY t.track_id, t.name
+ORDER BY times_sold DESC
+LIMIT 100; -- limitar a 10 para ver el top 10

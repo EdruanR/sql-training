@@ -1,0 +1,20 @@
+-- Todas las tablas --
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
+ORDER BY table_name;
+
+-- Ver clientes --
+SELECT *
+FROM customer
+LIMIT 100;
+
+-- Explorar productos (tracks) --
+SELECT track_id, name, unit_price, album_id, media_type_id, genre_id
+FROM track
+LIMIT 100;
+
+-- Exprorar ventas (invoice_line) --
+SELECT invoice_line_id, invoice_id, track_id, unit_price, quantity
+FROM invoice_line
+LIMIT 100;
