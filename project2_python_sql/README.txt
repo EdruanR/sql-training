@@ -1,4 +1,4 @@
-# Proyecto 2 - SQL + Python (Semana 2)
+# Proyecto 2 - SQL + Python
 
 Este proyecto combina **PostgreSQL** con **Python (Pandas, SQLAlchemy, Matplotlib)** 
 para realizar un análisis de datos usando la base de ejemplo **Chinook**.
