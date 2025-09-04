@@ -1,0 +1,15 @@
+
+-- Ventas mensuales + acumulado de ventas (running total)
+WITH monthly_sales AS (
+    SELECT
+        DATE_TRUNC('month', i.invoice_date) AS month,
+        SUM(i.total) AS monthly_revenue
+    FROM invoice i
+    GROUP BY DATE_TRUNC('month', i.invoice_date)
+)
+SELECT
+    month,
+    monthly_revenue,
+    SUM(monthly_revenue) OVER (ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS running_total
+FROM monthly_sales
+ORDER BY month;

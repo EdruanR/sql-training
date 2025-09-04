@@ -1,0 +1,27 @@
+
+-- Top Artistas por país --
+WITH sales_by_artist AS (
+    SELECT
+        ar.name AS artist_name,
+        c.country,
+        SUM(il.unit_price * il.quantity) AS total_sales
+    FROM invoice_line il
+    INNER JOIN track t 
+        ON il.track_id = t.track_id
+    INNER JOIN album al 
+        ON t.album_id = al.album_id
+    INNER JOIN artist ar 
+        ON al.artist_id = ar.artist_id
+    INNER JOIN invoice i 
+        ON il.invoice_id = i.invoice_id
+    INNER JOIN customer c 
+        ON i.customer_id = c.customer_id
+    GROUP BY ar.name, c.country
+)
+SELECT
+    country,
+    artist_name,
+    total_sales,
+    RANK() OVER (PARTITION BY country ORDER BY total_sales DESC) AS rank_artist
+FROM sales_by_artist
+ORDER BY country, rank_artist;
