@@ -1,0 +1,28 @@
+
+-- Cohorte de clientes iniciales y su retención mes a mes --
+WITH first_purchase AS (
+    -- Para cada cliente, identificamos su primer mes de compra
+    SELECT 
+        c.customer_id,
+        DATE_TRUNC('month', MIN(i.invoice_date)) AS cohort_month
+    FROM customer c
+    INNER JOIN invoice i 
+        ON c.customer_id = i.customer_id
+    GROUP BY c.customer_id
+),
+purchases AS (
+    -- Relacionamos cada compra con el cliente y el mes
+    SELECT
+        i.customer_id,
+        DATE_TRUNC('month', i.invoice_date) AS purchase_month
+    FROM invoice i
+)
+SELECT
+    f.cohort_month,
+    p.purchase_month,
+    COUNT(DISTINCT p.customer_id) AS clientes_recurrentes
+FROM first_purchase f
+INNER JOIN purchases p 
+    ON f.customer_id = p.customer_id
+GROUP BY f.cohort_month, p.purchase_month
+ORDER BY f.cohort_month, p.purchase_month;

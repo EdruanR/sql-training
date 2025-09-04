@@ -1,0 +1,6 @@
+
+-- Rango de tiempo --
+SELECT 
+    MIN(invoice_date) AS primer_fecha,
+    MAX(invoice_date) AS ultima_fecha
+FROM invoice;

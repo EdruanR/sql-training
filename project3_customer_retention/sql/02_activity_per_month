@@ -1,0 +1,8 @@
+
+-- Conteo de clientes activos por mes --
+SELECT
+    DATE_TRUNC('month', invoice_date) AS mes,
+    COUNT(DISTINCT customer_id) AS clientes_activos
+FROM invoice
+GROUP BY mes
+ORDER BY mes;

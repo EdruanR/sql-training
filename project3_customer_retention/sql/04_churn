@@ -1,0 +1,49 @@
+
+-- Cálculo de Churn --
+WITH first_purchase AS (
+    -- Identificamos el mes cohorte de cada cliente
+    SELECT 
+        c.customer_id,
+        DATE_TRUNC('month', MIN(i.invoice_date)) AS cohort_month
+    FROM customer c
+    INNER JOIN invoice i 
+        ON c.customer_id = i.customer_id
+    GROUP BY c.customer_id
+),
+cohort_size AS (
+    -- Tamaño de cada cohorte (clientes únicos)
+    SELECT
+        cohort_month,
+        COUNT(DISTINCT customer_id) AS clientes_iniciales
+    FROM first_purchase
+    GROUP BY cohort_month
+),
+purchases AS (
+    -- Todas las compras de clientes por mes
+    SELECT
+        i.customer_id,
+        DATE_TRUNC('month', i.invoice_date) AS purchase_month
+    FROM invoice i
+),
+retention AS (
+    -- Relacionamos cohortes y meses de compra: clientes activos recurrentes
+    SELECT
+        f.cohort_month,
+        p.purchase_month,
+        COUNT(DISTINCT p.customer_id) AS clientes_recurrentes
+    FROM first_purchase f
+    INNER JOIN purchases p 
+        ON f.customer_id = p.customer_id
+    GROUP BY f.cohort_month, p.purchase_month
+)
+SELECT
+    r.cohort_month,
+    r.purchase_month,
+    r.clientes_recurrentes,
+    c.clientes_iniciales,
+    ROUND((r.clientes_recurrentes::decimal / c.clientes_iniciales) * 100, 2) AS retencion_pct,
+    ROUND(100 - (r.clientes_recurrentes::decimal / c.clientes_iniciales) * 100, 2) AS churn_pct
+FROM retention r
+INNER JOIN cohort_size c 
+    ON r.cohort_month = c.cohort_month
+ORDER BY r.cohort_month, r.purchase_month;
