@@ -39,6 +39,13 @@ Cada carpeta contiene un mini-proyecto práctico, con queries, notebooks o repor
 - Top artistas más vendidos por país.  
 - Visualización de resultados en Power BI con tablas, gráficos y dashboards.  
 
+### [Project 5: Sistema de Estadísticas de Quejas de Derechos Humanos](./project5_human_rights_cases/README.md)
+- Simulación de un sistema de registro estadístico de quejas.  
+- Dataset ficticio de 10,000 registros (2019–2024) generado con Faker.  
+- Almacenamiento y análisis en PostgreSQL.  
+- Detección de anomalías normalizadas por población.  
+- Dashboards dinámicos en Power BI (mapa, heatmap, comparativas anuales).  
+
 ---
 
 ## Stack usado
@@ -50,5 +57,5 @@ Cada carpeta contiene un mini-proyecto práctico, con queries, notebooks o repor
 ---
 
 ## Próximos pasos
-- Project 5: dashboards interactivos en Power BI / Python.  
-- Project 6: queries de SQL avanzado (LAG, LEAD, comparaciones históricas).
+- Project 6: dashboards interactivos en Power BI / Python.  
+- Project 7: queries de SQL avanzado (LAG, LEAD, comparaciones históricas).
