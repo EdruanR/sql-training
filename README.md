@@ -37,7 +37,9 @@ Cada carpeta contiene un mini-proyecto práctico, con queries, notebooks o repor
 - Ranking de clientes por país, global y con empates.  
 - Running total de ventas acumuladas por mes.  
 - Top artistas más vendidos por país.  
-- Visualización de resultados en Power BI con tablas, gráficos y dashboards.  
+- Visualización de resultados en Power BI con tablas, gráficos y dashboards. 
+
+---
 
 ### [Project 5: Sistema de Estadísticas de Quejas de Derechos Humanos](./project5_human_rights_cases/README.md)
 - Simulación de un sistema de registro estadístico de quejas.  
@@ -56,6 +58,11 @@ Cada carpeta contiene un mini-proyecto práctico, con queries, notebooks o repor
 
 ---
 
-## Próximos pasos
-- Project 6: dashboards interactivos en Power BI / Python.  
+### [Project 6: Cartera de Crédito y Scoring Básico](./project6_credit_demo/README.md)
+- Simulación de clientes y créditos personales con Faker.
+- Almacenamiento en PostgreSQL (`credito_demo`).
+- Análisis de morosidad por segmentos (ingreso, edad, empleo) en SQL.
+- Desarrollo de un modelo exploratorio de scoring (regresión logística) en Python.
+
+## Próximos pasos 
 - Project 7: queries de SQL avanzado (LAG, LEAD, comparaciones históricas).
