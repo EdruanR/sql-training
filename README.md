@@ -50,6 +50,14 @@ Cada carpeta contiene un mini-proyecto práctico, con queries, notebooks o repor
 
 ---
 
+### [Project 6: Cartera de Crédito y Scoring Básico](./project6_credit_demo/README.md)
+- Simulación de clientes y créditos personales con Faker.
+- Almacenamiento en PostgreSQL (`credito_demo`).
+- Análisis de morosidad por segmentos (ingreso, edad, empleo) en SQL.
+- Desarrollo de un modelo exploratorio de scoring (regresión logística) en Python.
+
+---
+
 ## Stack usado
 - PostgreSQL 17
 - VS Code
@@ -57,12 +65,6 @@ Cada carpeta contiene un mini-proyecto práctico, con queries, notebooks o repor
 - Power BI Desktop
 
 ---
-
-### [Project 6: Cartera de Crédito y Scoring Básico](./project6_credit_demo/README.md)
-- Simulación de clientes y créditos personales con Faker.
-- Almacenamiento en PostgreSQL (`credito_demo`).
-- Análisis de morosidad por segmentos (ingreso, edad, empleo) en SQL.
-- Desarrollo de un modelo exploratorio de scoring (regresión logística) en Python.
 
 ## Próximos pasos 
 - Project 7: queries de SQL avanzado (LAG, LEAD, comparaciones históricas).
